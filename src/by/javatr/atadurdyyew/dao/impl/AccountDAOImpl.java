@@ -19,8 +19,8 @@ public class AccountDAOImpl implements GenericDAO<Account> {
     }
 
     @Override
-    public void update(Account data) throws DAOException {
-
+    public Account update(Account data) throws DAOException {
+        return null;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class AccountDAOImpl implements GenericDAO<Account> {
     }
 
     @Override
-    public void create(Account data) throws DAOException {
-
+    public Account create(Account data) throws DAOException {
+        return null;
     }
 }

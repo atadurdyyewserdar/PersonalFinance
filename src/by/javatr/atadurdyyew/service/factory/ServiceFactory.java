@@ -1,15 +1,15 @@
 package by.javatr.atadurdyyew.service.factory;
 
 import by.javatr.atadurdyyew.service.AccountService;
-import by.javatr.atadurdyyew.service.UserService;
+import by.javatr.atadurdyyew.service.ClientService;
 import by.javatr.atadurdyyew.service.impl.AccountServiceImpl;
-import by.javatr.atadurdyyew.service.impl.UserServiceImpl;
+import by.javatr.atadurdyyew.service.impl.ClientServiceImpl;
 
 public class ServiceFactory {
     public static ServiceFactory instance = new ServiceFactory();
 
     AccountService accountService = new AccountServiceImpl();
-    UserService userService = new UserServiceImpl();
+    ClientService clientService = new ClientServiceImpl();
 
     private ServiceFactory() {
     }
@@ -22,7 +22,7 @@ public class ServiceFactory {
         return accountService;
     }
 
-    public UserService getUserService() {
-        return userService;
+    public ClientService getClientService() {
+        return clientService;
     }
 }

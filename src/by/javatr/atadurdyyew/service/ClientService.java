@@ -3,7 +3,7 @@ package by.javatr.atadurdyyew.service;
 import by.javatr.atadurdyyew.bean.User;
 import by.javatr.atadurdyyew.exception.ServiceException;
 
-public interface UserService {
+public interface ClientService {
     void changeLogin(String login) throws ServiceException;
 
     void changePassword(String password) throws ServiceException;
@@ -11,4 +11,6 @@ public interface UserService {
     boolean logIn(String login, String password) throws ServiceException;
 
     boolean logOut(String login) throws ServiceException;
+
+    User signUp(String login, String password) throws ServiceException;
 }

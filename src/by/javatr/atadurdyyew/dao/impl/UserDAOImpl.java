@@ -4,10 +4,12 @@ import by.javatr.atadurdyyew.bean.User;
 import by.javatr.atadurdyyew.dao.GenericDAO;
 import by.javatr.atadurdyyew.exception.DAOException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.List;
 
 public class UserDAOImpl implements GenericDAO<User> {
-
     @Override
     public User get(int id) throws DAOException {
         return null;
@@ -15,12 +17,17 @@ public class UserDAOImpl implements GenericDAO<User> {
 
     @Override
     public List<User> getAll() throws DAOException {
+        try {
+            FileReader fileReader = new FileReader("/resources/users.txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
-    public void update(User data) throws DAOException {
-
+    public User update(User data) throws DAOException {
+        return null;
     }
 
     @Override
@@ -29,7 +36,8 @@ public class UserDAOImpl implements GenericDAO<User> {
     }
 
     @Override
-    public void create(User data) throws DAOException {
-
+    public User create(User data) throws DAOException {
+        data.setId((int)(Math.random() * 3));
+        return data;
     }
 }
