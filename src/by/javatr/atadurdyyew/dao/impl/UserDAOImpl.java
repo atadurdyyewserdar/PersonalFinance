@@ -17,11 +17,6 @@ public class UserDAOImpl implements GenericDAO<User> {
 
     @Override
     public List<User> getAll() throws DAOException {
-        try {
-            FileReader fileReader = new FileReader("/resources/users.txt");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
         return null;
     }
 
