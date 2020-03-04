@@ -12,5 +12,5 @@ public interface ClientService {
 
     boolean logOut(String login) throws ServiceException;
 
-    User signUp(String login, String password) throws ServiceException;
+    boolean signUp(String login, String password) throws ServiceException;
 }

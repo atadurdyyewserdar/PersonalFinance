@@ -2,11 +2,9 @@ package by.javatr.atadurdyyew.dao.impl;
 
 import by.javatr.atadurdyyew.bean.User;
 import by.javatr.atadurdyyew.dao.GenericDAO;
+import by.javatr.atadurdyyew.util.FileLogic;
 import by.javatr.atadurdyyew.exception.DAOException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.List;
 
 public class UserDAOImpl implements GenericDAO<User> {
@@ -33,6 +31,8 @@ public class UserDAOImpl implements GenericDAO<User> {
     @Override
     public User create(User data) throws DAOException {
         data.setId((int)(Math.random() * 3));
+        FileLogic fileLogic = new FileLogic();
+        fileLogic.writeToFile(data);
         return data;
     }
 }

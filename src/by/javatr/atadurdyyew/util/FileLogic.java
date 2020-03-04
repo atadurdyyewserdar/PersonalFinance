@@ -1,4 +1,4 @@
-package by.javatr.atadurdyyew.dao.file;
+package by.javatr.atadurdyyew.util;
 
 import by.javatr.atadurdyyew.exception.DAOException;
 
@@ -11,22 +11,28 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 public class FileLogic {
-    public void writeToFile(String data) throws DAOException {
+    public void writeToFile(Object data) throws DAOException {
         if (data == null){
             throw new DAOException("Data is null");
         }
-        try {
-            BufferedWriter bufferedWriter =  Files.newBufferedWriter(
-                    Paths.get("resources/users.txt"),
-                    StandardCharsets.UTF_8,
-                    StandardOpenOption.WRITE,
-                    StandardOpenOption.APPEND,
-                    StandardOpenOption.CREATE);
+        try (BufferedWriter bufferedWriter =  Files.newBufferedWriter(
+                Paths.get("resources/users.txt"),
+                StandardCharsets.UTF_8,
+                StandardOpenOption.WRITE,
+                StandardOpenOption.APPEND,
+                StandardOpenOption.CREATE)){
+
             PrintWriter printWriter = new PrintWriter(bufferedWriter);
             printWriter.println(data);
-            printWriter.close();
+            printWriter.flush();
         } catch (IOException e) {
             throw new DAOException("File exception", e);
+        }
+    }
+
+    public void writeToFile(Object[] data) throws DAOException {
+        for(Object obj : data){
+            writeToFile(obj);
         }
     }
 }

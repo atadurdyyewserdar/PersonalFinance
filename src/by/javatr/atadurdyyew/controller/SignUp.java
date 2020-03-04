@@ -13,12 +13,12 @@ public class SignUp implements Command {
         String login = command.substring(i1 + 1, command.indexOf('&'));
         int i2 = command.lastIndexOf('=');
         String password = command.substring(i2 + 1);
-
         ClientService clientService = ServiceFactory.getInstance().getClientService();
-        String result;
+        String result = "error";
         try {
-            User user = clientService.signUp(login, password);
-            result = "successful";
+            if (clientService.signUp(login, password)){
+                result = "successful";
+            }
         } catch (ServiceException e) {
             throw new ControllerException("Couldn't create user", e);
         }

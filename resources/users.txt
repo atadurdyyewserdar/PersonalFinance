@@ -1,2 +1,4 @@
-Serdar
-Serdar
+User{id=0, login='admin', password='admin'}
+User{id=1, login='admin', password='admin'}
+User{id=0, login='admin', password='admin'}
+User{id=2, login='admin', password='admin'}

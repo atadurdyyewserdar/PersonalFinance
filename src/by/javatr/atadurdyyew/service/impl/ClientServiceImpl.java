@@ -33,7 +33,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public User signUp(String login, String password) throws ServiceException {
+    public boolean signUp(String login, String password) throws ServiceException {
         GenericDAO<User> userGenericDAO = DAOFactory.getDAOFactory().getUserDAO();
         User user;
         try {
@@ -45,6 +45,6 @@ public class ClientServiceImpl implements ClientService {
         } catch (DAOException e) {
             throw new ServiceException("Couldn't create user", e);
         }
-        return user;
+        return true;
     }
 }
