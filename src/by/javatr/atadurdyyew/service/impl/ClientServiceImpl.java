@@ -3,12 +3,12 @@ package by.javatr.atadurdyyew.service.impl;
 import by.javatr.atadurdyyew.bean.User;
 import by.javatr.atadurdyyew.dao.DAOfactory.DAOFactory;
 import by.javatr.atadurdyyew.dao.GenericDAO;
-import by.javatr.atadurdyyew.dao.impl.UserDAOImpl;
-import by.javatr.atadurdyyew.exception.ControllerException;
+import by.javatr.atadurdyyew.dao.UserDAO;
 import by.javatr.atadurdyyew.exception.DAOException;
 import by.javatr.atadurdyyew.exception.ServiceException;
 import by.javatr.atadurdyyew.service.ClientService;
-import by.javatr.atadurdyyew.service.factory.ServiceFactory;
+
+import java.util.List;
 
 public class ClientServiceImpl implements ClientService {
 
@@ -24,7 +24,20 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public boolean logIn(String login, String password) throws ServiceException {
-        return false;
+        DAOFactory daoFactory = DAOFactory.getDAOFactory();
+        UserDAO userDAO = daoFactory.getUserDAO();
+        boolean result = false;
+        try {
+            List<User> userList = userDAO.getAll();
+            for (User user : userList) {
+                if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
+                    result = true;
+                }
+            }
+        } catch (DAOException e) {
+            throw new ServiceException();
+        }
+        return result;
     }
 
     @Override
@@ -33,18 +46,33 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean signUp(String login, String password) throws ServiceException {
-        GenericDAO<User> userGenericDAO = DAOFactory.getDAOFactory().getUserDAO();
+    public void signUp(String login, String password) throws ServiceException {
+        UserDAO userGenericDAO = DAOFactory.getDAOFactory().getUserDAO();
         User user;
         try {
-            user =  new User(login, password);
-            userGenericDAO.create(user);
-            if (user.getId() == -1){
-                throw new ServiceException("Couldn't create user");
+            if (userGenericDAO.findByLogin(login) != null) {
+                throw new ServiceException("User Already exists");
             }
+            List<User> userList = userGenericDAO.getAll();
+            user = new User(findMaxId(userList) + 1, login, password);
+            userGenericDAO.create(user);
         } catch (DAOException e) {
             throw new ServiceException("Couldn't create user", e);
         }
-        return true;
+    }
+
+    private int findMaxId(List<User> userList) {
+        int max;
+        if (userList.size() == 0) {
+            max = 0;
+        } else {
+            max = userList.get(0).getId();
+            for (User user : userList) {
+                if (user.getId() > max) {
+                    max = user.getId();
+                }
+            }
+        }
+        return max;
     }
 }

@@ -15,7 +15,6 @@ public class User implements Serializable {
     public User(String login, String password) {
         this.login = login;
         this.password = password;
-        id = -1;
     }
 
     public User(int id, String login, String password) {
@@ -67,8 +66,8 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
+                " login=" + login +
+                " password=" + password +
                 '}';
     }
 }

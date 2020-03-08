@@ -8,8 +8,10 @@ import java.util.List;
 
 public class AccountDAOImpl implements GenericDAO<Account> {
 
+    public static final String FILE_PATH = "resources/accounts.txt";
+
     @Override
-    public Account get(int id) throws DAOException {
+    public Account get(Account id) throws DAOException {
         return null;
     }
 
@@ -19,17 +21,14 @@ public class AccountDAOImpl implements GenericDAO<Account> {
     }
 
     @Override
-    public Account update(Account data) throws DAOException {
-        return null;
+    public void update(Account id) throws DAOException {
     }
 
     @Override
-    public void delete(Account data) throws DAOException {
-
+    public void delete(Account id) throws DAOException {
     }
 
     @Override
-    public Account create(Account data) throws DAOException {
-        return null;
+    public void create(Account id) throws DAOException {
     }
 }
