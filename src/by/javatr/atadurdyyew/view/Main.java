@@ -10,8 +10,8 @@ public class Main {
         Controller controller = new Controller();
         try {
             String result;
-            result = controller.executeTask("sign_up login=admin&password=admin");
-            System.out.println(result);
+            //result = controller.executeTask("sign_up login=admin&password=admin");
+            //System.out.println(result);
             result = controller.executeTask("log_in login=admin&password=admin");
             System.out.println(result);
         } catch (ControllerException e) {

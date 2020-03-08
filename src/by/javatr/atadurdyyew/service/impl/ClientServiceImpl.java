@@ -1,13 +1,16 @@
 package by.javatr.atadurdyyew.service.impl;
 
+import by.javatr.atadurdyyew.bean.Account;
 import by.javatr.atadurdyyew.bean.User;
 import by.javatr.atadurdyyew.dao.DAOfactory.DAOFactory;
 import by.javatr.atadurdyyew.dao.GenericDAO;
 import by.javatr.atadurdyyew.dao.UserDAO;
 import by.javatr.atadurdyyew.exception.DAOException;
 import by.javatr.atadurdyyew.exception.ServiceException;
+import by.javatr.atadurdyyew.service.AccountService;
 import by.javatr.atadurdyyew.service.ClientService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class ClientServiceImpl implements ClientService {
@@ -56,8 +59,10 @@ public class ClientServiceImpl implements ClientService {
             List<User> userList = userGenericDAO.getAll();
             user = new User(findMaxId(userList) + 1, login, password);
             userGenericDAO.create(user);
+            AccountServiceImpl accountService = new AccountServiceImpl();
+            accountService.createAccount(new Account(user.getId(), user.getId(), BigDecimal.ZERO));
         } catch (DAOException e) {
-            throw new ServiceException("Couldn't create user", e);
+            throw new ServiceException("Error creating user", e);
         }
     }
 

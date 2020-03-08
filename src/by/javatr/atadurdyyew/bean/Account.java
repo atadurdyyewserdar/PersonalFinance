@@ -12,7 +12,7 @@ public class Account implements Serializable {
     public Account(){
     }
 
-    public Account(BigDecimal balance, int accountId, int userId) {
+    public Account(int accountId, int userId, BigDecimal balance) {
         this.balance = balance;
         this.accountId = accountId;
         this.userId = userId;
@@ -22,6 +22,30 @@ public class Account implements Serializable {
         this.balance = balance;
         this.accountId = accountId;
         userId = -1;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override
