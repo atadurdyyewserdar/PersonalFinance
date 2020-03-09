@@ -154,6 +154,11 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    @Override
+    public int findMaxId() throws DAOException {
+        return 0;
+    }
+
     public User findByLogin(String login) throws DAOException{
         List<User>userList = getAll();
         User result = null;

@@ -10,9 +10,9 @@ public class Main {
         Controller controller = new Controller();
         try {
             String result;
-            //result = controller.executeTask("sign_up login=admin&password=admin");
-            //System.out.println(result);
             result = controller.executeTask("log_in login=admin&password=admin");
+            System.out.println(result);
+            result = controller.executeTask("operation 1 -1000 trip");
             System.out.println(result);
             result = controller.executeTask("operation 1 1000 salary");
             System.out.println(result);

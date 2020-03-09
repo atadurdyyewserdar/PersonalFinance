@@ -1,6 +1,7 @@
 package by.javatr.atadurdyyew.dao.impl;
 
 import by.javatr.atadurdyyew.bean.Account;
+import by.javatr.atadurdyyew.bean.Operation;
 import by.javatr.atadurdyyew.bean.User;
 import by.javatr.atadurdyyew.convertor.AccountConvertor;
 import by.javatr.atadurdyyew.convertor.UserConvertor;
@@ -143,6 +144,20 @@ public class AccountDAOImpl implements AccountDAO {
         } catch (IOException e) {
             throw new DAOException("Error while writing account to file", e);
         }
+    }
+
+    @Override
+    public int findMaxId() throws DAOException {
+        List<Account> accounts = getAll();
+        int max = 0;
+        for (Account account : accounts)
+        {
+            if (account.getAccountId() > max)
+            {
+                max = account.getAccountId();
+            }
+        }
+        return max;
     }
 
     @Override

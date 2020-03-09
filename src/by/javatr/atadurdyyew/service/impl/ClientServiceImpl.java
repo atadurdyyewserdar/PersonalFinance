@@ -2,6 +2,7 @@ package by.javatr.atadurdyyew.service.impl;
 
 import by.javatr.atadurdyyew.bean.Account;
 import by.javatr.atadurdyyew.bean.User;
+import by.javatr.atadurdyyew.dao.AccountDAO;
 import by.javatr.atadurdyyew.dao.DAOfactory.DAOFactory;
 import by.javatr.atadurdyyew.dao.UserDAO;
 import by.javatr.atadurdyyew.exception.DAOException;
@@ -12,14 +13,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class ClientServiceImpl implements ClientService {
-
-    @Override
-    public void changeLogin(String login) throws ServiceException {
-    }
-
-    @Override
-    public void changePassword(String password) throws ServiceException {
-    }
 
     @Override
     public boolean logIn(String login, String password) throws ServiceException {
@@ -45,23 +38,19 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void signUp(String login, String password) throws ServiceException {
+    public void signUp(User user) throws ServiceException {
         UserDAO userGenericDAO = DAOFactory.getDAOFactory().getUserDAO();
-        User user;
+        AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
         try {
-            if (userGenericDAO.findByLogin(login) != null) {
+            if (userGenericDAO.findByLogin(user.getLogin()) != null) {
                 throw new ServiceException("User Already exists");
             }
-            List<User> userList = userGenericDAO.getAll();
-            user = new User(findMaxId(userList) + 1, login, password);
             userGenericDAO.create(user);
-            AccountServiceImpl accountService = new AccountServiceImpl();
-            accountService.createAccount(new Account(user.getId(), user.getId(), BigDecimal.ZERO));
+            accountDAO.create(new Account(accountDAO.findMaxId() + 1, user.getId(), BigDecimal.ZERO));
         } catch (DAOException e) {
             throw new ServiceException("Error creating user", e);
         }
     }
-
     private int findMaxId(List<User> userList) {
         int max;
         if (userList.size() == 0) {

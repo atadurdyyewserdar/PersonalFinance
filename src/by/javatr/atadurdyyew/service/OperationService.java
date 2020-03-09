@@ -5,5 +5,5 @@ import by.javatr.atadurdyyew.exception.ServiceException;
 import java.math.BigDecimal;
 
 public interface OperationService {
-    boolean addFunds(int accountId, BigDecimal amount, String operationName) throws ServiceException;
+    boolean operation(int accountId, BigDecimal amount, String operationName) throws ServiceException;
 }

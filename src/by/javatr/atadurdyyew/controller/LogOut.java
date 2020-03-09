@@ -5,6 +5,6 @@ import by.javatr.atadurdyyew.exception.ControllerException;
 public class LogOut implements Command {
     @Override
     public String execute(String command) throws ControllerException {
-        return null;
+        return "success";
     }
 }

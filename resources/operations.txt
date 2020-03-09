@@ -1,1 +1,5 @@
 1,1,salary,1000
+2,1,salary,1000
+3,1,salary,1000
+4,1,salary,1000
+5,1,salary,-1000

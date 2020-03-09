@@ -10,4 +10,5 @@ public interface GenericDAO<T> {
     void update(T id) throws DAOException;
     void delete(T id) throws DAOException;
     void create(T id) throws DAOException;
+    int findMaxId() throws DAOException;
 }
