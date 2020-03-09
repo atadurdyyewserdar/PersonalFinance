@@ -60,7 +60,7 @@ public class OperationServiceImpl implements OperationService {
                 int id = operationDAO.findMaxId() + 1;
                 Operation operation = new Operation(id, operationName, amount, accountId);
                 operationDAO.create(operation);
-                account.setBalance(account.getBalance().subtract(amount));
+                account.setBalance(account.getBalance().subtract(amount.abs()));
                 accountDAO.update(account);
                 result = true;
             }
