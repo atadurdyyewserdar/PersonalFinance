@@ -15,6 +15,9 @@ import java.util.List;
 public class OperationServiceImpl implements OperationService {
     @Override
     public boolean operation(int accountId, BigDecimal amount, String operationName) throws ServiceException {
+        if (amount == null || operationName == null){
+            throw new ServiceException("Amount or operationName is null");
+        }
         boolean result;
         if (amount.compareTo(BigDecimal.ZERO) < 0){
             result = expense(accountId, amount, operationName);

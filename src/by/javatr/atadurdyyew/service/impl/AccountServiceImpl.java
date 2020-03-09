@@ -13,6 +13,9 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
     @Override
     public void createAccount(Account account) throws ServiceException {
+        if (account == null){
+            throw new ServiceException("Account is null");
+        }
         DAOFactory daoFactory = DAOFactory.getDAOFactory();
         AccountDAO accountDAO = daoFactory.getAccountDAO();
         try {
@@ -24,11 +27,16 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void deleteAccount(Account account) throws ServiceException {
-
+        if (account == null){
+            throw new ServiceException("Account is null");
+        }
     }
 
     @Override
     public void update(Account account) throws ServiceException {
+        if (account == null){
+            throw new ServiceException("Account is null");
+        }
     }
 
     @Override
