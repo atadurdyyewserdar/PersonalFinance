@@ -1,0 +1,10 @@
+1,1,business,10000
+2,1,salary,10000
+3,1,Relax,-5000
+4,1,salary,10000
+5,1,Relax,-5000
+6,1,business,10000
+7,1,salary,10000
+8,1,Relax,-5000
+9,1,salary,10000
+10,1,Relax,-5000

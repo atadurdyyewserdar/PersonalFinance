@@ -13,10 +13,11 @@ final public class CommandProvider {
         repository.put(CommandName.LOG_OUT, new LogOut());
         repository.put(CommandName.SIGN_UP, new SignUp());
         repository.put(CommandName.OPERATION, new Operation());
+        repository.put(CommandName.BALANCE, new Balance());
     }
 
     Command getCommand(String name){
-        CommandName commandName = null;
+        CommandName commandName;
         Command command = null;
         try{
             commandName = CommandName.valueOf(name.toUpperCase());

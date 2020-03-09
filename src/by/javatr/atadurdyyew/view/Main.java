@@ -25,5 +25,7 @@ public class Main {
         System.out.println(result);
         result = controller.executeTask("operation 1 -5000 Relax");
         System.out.println(result);
+        result = controller.executeTask("balance 1");
+        System.out.println(result);
     }
 }

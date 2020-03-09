@@ -4,5 +4,6 @@ public enum CommandName {
     LOG_IN,
     LOG_OUT,
     SIGN_UP,
-    OPERATION
+    OPERATION,
+    BALANCE
 }

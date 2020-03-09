@@ -63,6 +63,7 @@ public class AccountServiceImpl implements AccountService {
         return accountList;
     }
 
+    @Override
     public BigDecimal getBalance(int id) throws ServiceException{
         AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
         BigDecimal balance;
