@@ -3,11 +3,9 @@ package by.javatr.atadurdyyew.service.impl;
 import by.javatr.atadurdyyew.bean.Account;
 import by.javatr.atadurdyyew.bean.User;
 import by.javatr.atadurdyyew.dao.DAOfactory.DAOFactory;
-import by.javatr.atadurdyyew.dao.GenericDAO;
 import by.javatr.atadurdyyew.dao.UserDAO;
 import by.javatr.atadurdyyew.exception.DAOException;
 import by.javatr.atadurdyyew.exception.ServiceException;
-import by.javatr.atadurdyyew.service.AccountService;
 import by.javatr.atadurdyyew.service.ClientService;
 
 import java.math.BigDecimal;
@@ -17,12 +15,10 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void changeLogin(String login) throws ServiceException {
-
     }
 
     @Override
     public void changePassword(String password) throws ServiceException {
-
     }
 
     @Override

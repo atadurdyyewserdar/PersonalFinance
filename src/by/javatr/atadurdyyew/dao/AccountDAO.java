@@ -6,4 +6,5 @@ import by.javatr.atadurdyyew.exception.DAOException;
 
 public interface AccountDAO extends GenericDAO<Account>{
     Account findByUserId(int id) throws DAOException;
+    Account findById(int id) throws DAOException;
 }

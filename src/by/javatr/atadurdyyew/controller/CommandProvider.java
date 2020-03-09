@@ -12,8 +12,7 @@ final public class CommandProvider {
         repository.put(CommandName.LOG_IN, new LogIn());
         repository.put(CommandName.LOG_OUT, new LogOut());
         repository.put(CommandName.SIGN_UP, new SignUp());
-        repository.put(CommandName.CHARGE, new Charge());
-        repository.put(CommandName.ADD_FUND, new AddFund());
+        repository.put(CommandName.OPERATION, new Operation());
     }
 
     Command getCommand(String name){
