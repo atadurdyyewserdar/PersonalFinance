@@ -14,10 +14,10 @@ public class Operation implements Command {
         try {
             if (operationService.operation(Integer.parseInt(data[1]), new BigDecimal(data[2]), data[3]))
             {
-                result = "successful";
+                result = "successful operation";
             }
             else {
-                result = "error";
+                result = "wring operation";
             }
         } catch (ServiceException e) {
             result = "Error during signing up";

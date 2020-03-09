@@ -1,2 +1,2 @@
-1,admin,admin
-0,user,user
+1,user,user
+2,user,user

@@ -18,7 +18,12 @@ public class SignUp implements Command {
         try {
             User user = new User(login, password);
             clientService.signUp(user);
-            result = UserConvertor.convert(user);
+            if (user.getId() == 0){
+                result = "Already exists";
+            }
+            else {
+                result = UserConvertor.convert(user) + " successfully signed up";
+            }
         } catch (ServiceException e) {
             result = "Error during signing up";
         }

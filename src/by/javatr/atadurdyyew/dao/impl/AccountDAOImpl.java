@@ -1,12 +1,8 @@
 package by.javatr.atadurdyyew.dao.impl;
 
 import by.javatr.atadurdyyew.bean.Account;
-import by.javatr.atadurdyyew.bean.Operation;
-import by.javatr.atadurdyyew.bean.User;
 import by.javatr.atadurdyyew.convertor.AccountConvertor;
-import by.javatr.atadurdyyew.convertor.UserConvertor;
 import by.javatr.atadurdyyew.dao.AccountDAO;
-import by.javatr.atadurdyyew.dao.GenericDAO;
 import by.javatr.atadurdyyew.exception.DAOException;
 
 import java.io.*;

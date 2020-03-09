@@ -40,7 +40,6 @@ public class OperationServiceImpl implements OperationService {
                 Operation operation = new Operation(id, operationName, amount, accountId);
                 operationDAO.create(operation);
                 account.setBalance(account.getBalance().add(amount));
-                System.out.println(account);
                 accountDAO.update(account);
                 result = true;
             }

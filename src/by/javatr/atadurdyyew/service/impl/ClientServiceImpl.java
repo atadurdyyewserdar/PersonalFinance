@@ -39,14 +39,16 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void signUp(User user) throws ServiceException {
-        if (user == null || user.getLogin() == null || user.getPassword() == null) {
-            throw new ServiceException("user or login or password is null");
+        if (user == null) {
+            throw new ServiceException("user is null");
         }
         UserDAO userGenericDAO = DAOFactory.getDAOFactory().getUserDAO();
         AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
         try {
-            userGenericDAO.create(user);
-            accountDAO.create(new Account(BigDecimal.ZERO, user.getId()));
+            if (userGenericDAO.findByLogin(user.getLogin()) == null){
+                userGenericDAO.create(user);
+                accountDAO.create(new Account(BigDecimal.ZERO, user.getId()));
+            }
         } catch (DAOException e) {
             throw new ServiceException("Error creating user", e);
         }

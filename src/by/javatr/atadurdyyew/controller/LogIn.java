@@ -18,7 +18,12 @@ public class LogIn implements Command {
         User user;
         try {
             user = clientService.logIn(login, password);
-            result = UserConvertor.convert(user);
+            if (user != null){
+                result = UserConvertor.convert(user) + " successfully logged in";
+            }
+            else{
+                result = "wrong login or password";
+            }
         } catch (ServiceException e) {
             result = "Error during log in Controller";
         }
