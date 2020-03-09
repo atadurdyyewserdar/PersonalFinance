@@ -1,13 +1,11 @@
 package by.javatr.atadurdyyew.controller;
 
-import by.javatr.atadurdyyew.exception.ControllerException;
-
 final public class Controller {
     private final CommandProvider provider = new CommandProvider();
 
     private char paramDelimeter = ' ';
 
-    public String executeTask(String request) throws ControllerException {
+    public String executeTask(String request)   {
         String commandName;
         Command executionCommand;
 

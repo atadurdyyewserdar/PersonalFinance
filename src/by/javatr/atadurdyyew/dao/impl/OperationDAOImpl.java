@@ -4,6 +4,7 @@ import by.javatr.atadurdyyew.bean.Operation;
 import by.javatr.atadurdyyew.convertor.OperationConvertor;
 import by.javatr.atadurdyyew.dao.OperationDAO;
 import by.javatr.atadurdyyew.exception.DAOException;
+import jdk.dynalink.linker.ConversionComparator;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class OperationDAOImpl implements OperationDAO {
     public static final String FILE_NAME = "resources/operations.txt";
-    public static final String FILE_NAME_TEMP = "resources/operations.txt";
+    public static final String FILE_NAME_TEMP = "resources/operationsTemp.txt";
 
     @Override
     public Operation findByType(boolean isExpense) throws DAOException {
@@ -50,6 +51,7 @@ public class OperationDAOImpl implements OperationDAO {
             while ((record = bf.readLine()) != null) {
                 operations.add(OperationConvertor.convert(record));
             }
+            bf.close();
         } catch (IOException e) {
             throw new DAOException("Error while writing to file", e);
         }
@@ -71,7 +73,8 @@ public class OperationDAOImpl implements OperationDAO {
             BufferedWriter bw = new BufferedWriter(new FileWriter(fileTemp));
             String record;
             while ((record = br.readLine()) != null) {
-                if (record.contains(Integer.toString(data.getAccountId()))) {
+                Operation operation = OperationConvertor.convert(record);
+                if (data.getId() == operation.getId()) {
                     bw.write(OperationConvertor.convert(data));
                 } else {
                     bw.write(record);
@@ -103,7 +106,8 @@ public class OperationDAOImpl implements OperationDAO {
             BufferedWriter bw = new BufferedWriter(new FileWriter(fileTemp));
             String record;
             while ((record = br.readLine()) != null) {
-                if (record.contains(Integer.toString(data.getId()))) {
+                Operation operation = OperationConvertor.convert(record);
+                if (operation.getId() == data.getId()) {
                     continue;
                 }
                 bw.write(record);
@@ -129,6 +133,7 @@ public class OperationDAOImpl implements OperationDAO {
                 file.createNewFile();
             }
             bw = new BufferedWriter(new FileWriter(FILE_NAME, true));
+            data.setId(findMaxId() + 1);
             bw.write(OperationConvertor.convert(data));
             bw.flush();
             bw.newLine();

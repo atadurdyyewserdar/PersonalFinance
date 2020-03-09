@@ -15,26 +15,21 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService {
 
     @Override
-    public boolean logIn(String login, String password) throws ServiceException {
+    public User logIn(String login, String password) throws ServiceException {
         DAOFactory daoFactory = DAOFactory.getDAOFactory();
         UserDAO userDAO = daoFactory.getUserDAO();
-        boolean result = false;
+        User user;
         try {
-            List<User> userList = userDAO.getAll();
-            for (User user : userList) {
-                if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
-                    result = true;
-                }
-            }
+            user = userDAO.findByLogin(login);
         } catch (DAOException e) {
             throw new ServiceException();
         }
-        return result;
+        return user;
     }
 
     @Override
     public boolean logOut(String login) throws ServiceException {
-        return false;
+        return true;
     }
 
     @Override
@@ -42,15 +37,13 @@ public class ClientServiceImpl implements ClientService {
         UserDAO userGenericDAO = DAOFactory.getDAOFactory().getUserDAO();
         AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
         try {
-            if (userGenericDAO.findByLogin(user.getLogin()) != null) {
-                throw new ServiceException("User Already exists");
-            }
             userGenericDAO.create(user);
-            accountDAO.create(new Account(accountDAO.findMaxId() + 1, user.getId(), BigDecimal.ZERO));
+            accountDAO.create(new Account(BigDecimal.ZERO, user.getId()));
         } catch (DAOException e) {
             throw new ServiceException("Error creating user", e);
         }
     }
+
     private int findMaxId(List<User> userList) {
         int max;
         if (userList.size() == 0) {

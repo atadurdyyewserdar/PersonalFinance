@@ -56,6 +56,7 @@ public class UserDAOImpl implements UserDAO {
             while ((record = bf.readLine()) != null){
                 users.add(UserConvertor.convert(record));
             }
+            bf.close();
         } catch (IOException e) {
             throw new DAOException("Error while writing to file", e);
         }
@@ -80,7 +81,8 @@ public class UserDAOImpl implements UserDAO {
             String record;
             while ((record = br.readLine()) != null)
             {
-                if (record.contains(Integer.toString(data.getId())))
+                User user = UserConvertor.convert(record);
+                if (data.getId() == user.getId())
                 {
                     bw.write(UserConvertor.convert(data));
                 }
@@ -100,7 +102,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void delete(User user) throws DAOException {
+    public void delete(User data) throws DAOException {
         try {
             File fileTemp = new File(FILE_NAME_TEMP);
             File file = new File(FILE_NAME);
@@ -117,7 +119,8 @@ public class UserDAOImpl implements UserDAO {
             String record;
             while ((record = br.readLine()) != null)
             {
-                if (record.contains(Integer.toString(user.getId())))
+                User user = UserConvertor.convert(record);
+                if (data.getId() == user.getId())
                 {
                     continue;
                 }
@@ -145,6 +148,7 @@ public class UserDAOImpl implements UserDAO {
                 file.createNewFile();
             }
             bw = new BufferedWriter( new FileWriter(FILE_NAME,true) );
+            data.setId(findMaxId() + 1);
             bw.write(UserConvertor.convert(data));
             bw.flush();
             bw.newLine();
@@ -156,7 +160,14 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public int findMaxId() throws DAOException {
-        return 0;
+        List<User>userList = getAll();
+        int max = 0;
+        for (User us : userList){
+            if (us.getId() > max){
+                max = us.getId();
+            }
+        }
+        return max;
     }
 
     public User findByLogin(String login) throws DAOException{

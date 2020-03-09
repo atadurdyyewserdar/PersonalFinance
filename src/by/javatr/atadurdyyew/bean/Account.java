@@ -21,7 +21,7 @@ public class Account implements Serializable {
     public Account(BigDecimal balance, int accountId) {
         this.balance = balance;
         this.accountId = accountId;
-        userId = -1;
+        userId = 0;
     }
 
     public BigDecimal getBalance() {

@@ -1,14 +1,14 @@
 package by.javatr.atadurdyyew.controller;
 
 import by.javatr.atadurdyyew.bean.User;
-import by.javatr.atadurdyyew.exception.ControllerException;
+import by.javatr.atadurdyyew.convertor.UserConvertor;
 import by.javatr.atadurdyyew.exception.ServiceException;
 import by.javatr.atadurdyyew.service.ClientService;
 import by.javatr.atadurdyyew.service.factory.ServiceFactory;
 
 public class SignUp implements Command {
     @Override
-    public String execute(String command) throws ControllerException {
+    public String execute(String command)  {
         int i1 = command.indexOf('=');
         String login = command.substring(i1 + 1, command.indexOf('&'));
         int i2 = command.lastIndexOf('=');
@@ -16,8 +16,9 @@ public class SignUp implements Command {
         ClientService clientService = ServiceFactory.getInstance().getClientService();
         String result;
         try {
-            clientService.signUp(login, password);
-            result = "successful";
+            User user = new User(login, password);
+            clientService.signUp(user);
+            result = UserConvertor.convert(user);
         } catch (ServiceException e) {
             result = "Error during signing up";
         }

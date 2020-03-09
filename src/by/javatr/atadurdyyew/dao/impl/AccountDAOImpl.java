@@ -15,8 +15,8 @@ import java.util.List;
 
 public class AccountDAOImpl implements AccountDAO {
 
-    public static final String FILE_NAME = "resources/accounts.txt";
-    public static final String FILE_NAME_TEMP = "resources/accounts.txt";
+    public static final String FILE_NAME = "resources\\accounts.txt";
+    public static final String FILE_NAME_TEMP = "resources\\accountsTemp.txt";
 
     @Override
     public Account get(Account data) throws DAOException {
@@ -25,16 +25,14 @@ public class AccountDAOImpl implements AccountDAO {
         Account account = null;
         try {
             file = new File(FILE_NAME);
-            if (!file.exists())
-            {
+            if (!file.exists()) {
                 file.createNewFile();
             }
-            br = new BufferedReader( new FileReader(FILE_NAME) );
+            br = new BufferedReader(new FileReader(FILE_NAME));
             String record;
-            while( ( record = br.readLine() ) != null ) {
+            while ((record = br.readLine()) != null) {
                 Account account1 = AccountConvertor.convert(record);
-                if (account.getAccountId() == data.getAccountId())
-                {
+                if (account.getAccountId() == data.getAccountId()) {
                     account = account1;
                 }
             }
@@ -58,6 +56,7 @@ public class AccountDAOImpl implements AccountDAO {
             while ((record = bf.readLine()) != null) {
                 accounts.add(AccountConvertor.convert(record));
             }
+            bf.close();
         } catch (IOException e) {
             throw new DAOException("Error while writing to file", e);
         }
@@ -79,7 +78,8 @@ public class AccountDAOImpl implements AccountDAO {
             BufferedWriter bw = new BufferedWriter(new FileWriter(fileTemp));
             String record;
             while ((record = br.readLine()) != null) {
-                if (record.contains(Integer.toString(data.getAccountId()))) {
+                Account account = AccountConvertor.convert(record);
+                if (account.getAccountId() == data.getAccountId()) {
                     bw.write(AccountConvertor.convert(data));
                 } else {
                     bw.write(record);
@@ -137,6 +137,7 @@ public class AccountDAOImpl implements AccountDAO {
                 file.createNewFile();
             }
             bw = new BufferedWriter(new FileWriter(FILE_NAME, true));
+            data.setAccountId(findMaxId() + 1);
             bw.write(AccountConvertor.convert(data));
             bw.flush();
             bw.newLine();
@@ -150,10 +151,8 @@ public class AccountDAOImpl implements AccountDAO {
     public int findMaxId() throws DAOException {
         List<Account> accounts = getAll();
         int max = 0;
-        for (Account account : accounts)
-        {
-            if (account.getAccountId() > max)
-            {
+        for (Account account : accounts) {
+            if (account.getAccountId() > max) {
                 max = account.getAccountId();
             }
         }
@@ -162,7 +161,7 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public Account findByUserId(int id) throws DAOException {
-        List<Account>accounts = getAll();
+        List<Account> accounts = getAll();
         Account result = null;
         for (Account account : accounts) {
             if (account.getUserId() == id) {
@@ -177,10 +176,8 @@ public class AccountDAOImpl implements AccountDAO {
     public Account findById(int id) throws DAOException {
         List<Account> accounts = getAll();
         Account result = null;
-        for (Account account : accounts)
-        {
-            if (account.getAccountId() == id)
-            {
+        for (Account account : accounts) {
+            if (account.getAccountId() == id) {
                 result = account;
             }
         }

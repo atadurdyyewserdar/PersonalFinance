@@ -9,7 +9,7 @@ public class OperationConvertor {
     public static String convert(Operation operation) {
         String res;
         res = String.valueOf(operation.getId()) + ',' +
-                String.valueOf(operation.getAccountId()) + ','
+                operation.getAccountId() + ','
                 + operation.getOperationName() + ','
                 +operation.getValue().toString();
         return res;
