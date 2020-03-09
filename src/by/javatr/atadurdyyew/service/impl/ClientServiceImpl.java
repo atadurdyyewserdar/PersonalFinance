@@ -47,7 +47,10 @@ public class ClientServiceImpl implements ClientService {
         try {
             if (userGenericDAO.findByLogin(user.getLogin()) == null){
                 userGenericDAO.create(user);
-                accountDAO.create(new Account(BigDecimal.ZERO, user.getId()));
+                Account account = new Account();
+                account.setBalance(BigDecimal.ZERO);
+                account.setUserId(user.getId());
+                accountDAO.create(account);
             }
         } catch (DAOException e) {
             throw new ServiceException("Error creating user", e);

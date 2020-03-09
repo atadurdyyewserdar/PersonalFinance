@@ -147,7 +147,8 @@ public class UserDAOImpl implements UserDAO {
                 file.createNewFile();
             }
             bw = new BufferedWriter( new FileWriter(FILE_NAME,true) );
-            data.setId(findMaxId() + 1);
+            int id = findMaxId() + 1;
+            data.setId(id);
             bw.write(UserConvertor.convert(data));
             bw.flush();
             bw.newLine();
