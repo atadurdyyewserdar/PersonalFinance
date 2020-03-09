@@ -30,12 +30,24 @@ public class AccountServiceImpl implements AccountService {
         if (account == null){
             throw new ServiceException("Account is null");
         }
+        AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
+        try {
+            accountDAO.delete(account);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void update(Account account) throws ServiceException {
         if (account == null){
             throw new ServiceException("Account is null");
+        }
+        AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
+        try {
+            accountDAO.update(account);
+        } catch (DAOException e) {
+            throw new ServiceException("update error Service layer", e);
         }
     }
 
