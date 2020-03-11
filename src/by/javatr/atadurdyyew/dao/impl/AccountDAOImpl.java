@@ -15,7 +15,7 @@ public class AccountDAOImpl implements AccountDAO {
     public static final String FILE_NAME_TEMP = "resources\\accountsTemp.txt";
 
     @Override
-    public Account get(Account data) throws DAOException {
+    public Account find(int id) throws DAOException {
         BufferedReader br;
         File file;
         Account account = null;
@@ -28,7 +28,7 @@ public class AccountDAOImpl implements AccountDAO {
             String record;
             while ((record = br.readLine()) != null) {
                 Account account1 = AccountConvertor.convert(record);
-                if (account.getAccountId() == data.getAccountId()) {
+                if (account1.getAccountId() == id) {
                     account = account1;
                 }
             }

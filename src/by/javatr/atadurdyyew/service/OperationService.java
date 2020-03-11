@@ -9,9 +9,11 @@ import java.util.Iterator;
 public interface OperationService {
     boolean operation(int accountId, BigDecimal amount, String operationName) throws ServiceException;
 
-    Iterator<Operation> operationList() throws ServiceException;
+    Iterator<Operation> operationList(int account_id) throws ServiceException;
 
-    Iterator<Operation> operationListExpense(int id) throws ServiceException;
+    Iterator<Operation> operationListExpense(int account_id) throws ServiceException;
 
-    Iterator<Operation> operationListIncome(int id) throws ServiceException;
+    Iterator<Operation> operationListIncome(int account_id) throws ServiceException;
+
+    boolean deleteOperation(int operation_id) throws ServiceException;
 }

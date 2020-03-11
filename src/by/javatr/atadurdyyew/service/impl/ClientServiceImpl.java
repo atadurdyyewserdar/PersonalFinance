@@ -20,13 +20,16 @@ public class ClientServiceImpl implements ClientService {
         }
         DAOFactory daoFactory = DAOFactory.getDAOFactory();
         UserDAO userDAO = daoFactory.getUserDAO();
-        User user;
+        User result;
         try {
-            user = userDAO.findByLogin(login);
+            result = userDAO.findByLogin(login);
+            if (result != null && !result.getPassword().equals(password)) {
+                result = null;
+            }
         } catch (DAOException e) {
             throw new ServiceException();
         }
-        return user;
+        return result;
     }
 
     @Override
@@ -38,14 +41,16 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void signUp(User user) throws ServiceException {
-        if (user == null) {
+    public User signUp(String login, String password) throws ServiceException {
+        if (login == null || password == null) {
             throw new ServiceException("user is null");
         }
         UserDAO userGenericDAO = DAOFactory.getDAOFactory().getUserDAO();
         AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
+        User user = null;
         try {
-            if (userGenericDAO.findByLogin(user.getLogin()) == null){
+            if (userGenericDAO.findByLogin(login) == null) {
+                user = new User(login, password);
                 userGenericDAO.create(user);
                 Account account = new Account();
                 account.setBalance(BigDecimal.ZERO);
@@ -55,5 +60,6 @@ public class ClientServiceImpl implements ClientService {
         } catch (DAOException e) {
             throw new ServiceException("Error creating user", e);
         }
+        return user;
     }
 }

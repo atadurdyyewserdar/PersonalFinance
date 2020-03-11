@@ -71,7 +71,7 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    public Iterator<Operation> operationList() throws ServiceException {
+    public Iterator<Operation> operationList(int account_id) throws ServiceException {
         List<Operation> operations;
         OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
         try {
@@ -88,11 +88,7 @@ public class OperationServiceImpl implements OperationService {
         OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
         try {
             operations = operationDAO.getAll();
-            for (Operation operation : operations){
-                if (operation.getValue().compareTo(BigDecimal.ZERO) >= 0 ){
-                    operations.remove(operation);
-                }
-            }
+            operations.removeIf(operation -> operation.getValue().compareTo(BigDecimal.ZERO) >= 0);
         } catch (DAOException e) {
             throw new ServiceException("Error while reading all operations ServiceLayer", e);
         }
@@ -105,14 +101,27 @@ public class OperationServiceImpl implements OperationService {
         OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
         try {
             operations = operationDAO.getAll();
-            for (Operation operation : operations){
-                if (operation.getValue().compareTo(BigDecimal.ZERO) < 0){
-                    operations.remove(operation);
-                }
-            }
+            operations.removeIf(operation -> operation.getValue().compareTo(BigDecimal.ZERO) < 0);
         } catch (DAOException e) {
             throw new ServiceException("Error while reading all operations ServiceLayer", e);
         }
         return operations.iterator();
+    }
+
+    @Override
+    public boolean deleteOperation(int operation_id) throws ServiceException {
+        OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
+        boolean result = false;
+        try {
+            Operation operation = operationDAO.find(operation_id);
+            if (operation != null) {
+                operationDAO.delete(operation);
+                result = true;
+            }
+        } catch (DAOException e) {
+            throw new ServiceException("Error on deleting operation", e);
+        }
+        //Result will false if object not found
+        return result;
     }
 }

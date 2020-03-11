@@ -1,6 +1,8 @@
 package by.javatr.atadurdyyew.dao.impl;
 
+import by.javatr.atadurdyyew.bean.Account;
 import by.javatr.atadurdyyew.bean.Operation;
+import by.javatr.atadurdyyew.convertor.AccountConvertor;
 import by.javatr.atadurdyyew.convertor.OperationConvertor;
 import by.javatr.atadurdyyew.dao.OperationDAO;
 import by.javatr.atadurdyyew.exception.DAOException;
@@ -22,10 +24,8 @@ public class OperationDAOImpl implements OperationDAO {
     public int findMaxId() throws DAOException {
         List<Operation> operations = getAll();
         int max = 0;
-        for (Operation operation : operations)
-        {
-            if (operation.getId() > max)
-            {
+        for (Operation operation : operations) {
+            if (operation.getId() > max) {
                 max = operation.getId();
             }
         }
@@ -33,8 +33,28 @@ public class OperationDAOImpl implements OperationDAO {
     }
 
     @Override
-    public Operation get(Operation data) throws DAOException {
-        return null;
+    public Operation find(int id) throws DAOException {
+        BufferedReader br;
+        File file;
+        Operation operation = null;
+        try {
+            file = new File(FILE_NAME);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            br = new BufferedReader(new FileReader(FILE_NAME));
+            String record;
+            while ((record = br.readLine()) != null) {
+                Operation operation1 = OperationConvertor.convert(record);
+                if (operation1.getAccountId() == id) {
+                    operation = operation1;
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            throw new DAOException("Error while writing to file", e);
+        }
+        return operation;
     }
 
     @Override

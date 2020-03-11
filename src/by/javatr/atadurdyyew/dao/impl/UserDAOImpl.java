@@ -15,22 +15,20 @@ public class UserDAOImpl implements UserDAO {
     public final static String FILE_NAME_TEMP = "resources/usersTemp.txt";
 
     @Override
-    public User get(User data) throws DAOException {
+    public User find(int id) throws DAOException {
         BufferedReader br;
         File file;
         User user = null;
         try {
             file = new File(FILE_NAME);
-            if (!file.exists())
-            {
+            if (!file.exists()) {
                 file.createNewFile();
             }
-            br = new BufferedReader( new FileReader(FILE_NAME) );
+            br = new BufferedReader(new FileReader(FILE_NAME));
             String record;
-            while( ( record = br.readLine() ) != null ) {
+            while ((record = br.readLine()) != null) {
                 User user2 = UserConvertor.convert(record);
-                if (user2.getId() == data.getId())
-                {
+                if (id == user2.getId()) {
                     user = user2;
                 }
             }
@@ -43,16 +41,15 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> getAll() throws DAOException {
-        List<User>users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
         try {
             File file = new File(FILE_NAME);
-            if (!file.exists())
-            {
+            if (!file.exists()) {
                 file.createNewFile();
             }
             BufferedReader bf = new BufferedReader(new FileReader(FILE_NAME));
             String record;
-            while ((record = bf.readLine()) != null){
+            while ((record = bf.readLine()) != null) {
                 users.add(UserConvertor.convert(record));
             }
             bf.close();
@@ -67,25 +64,20 @@ public class UserDAOImpl implements UserDAO {
         try {
             File fileTemp = new File(FILE_NAME_TEMP);
             File file = new File(FILE_NAME);
-            if (!fileTemp.exists())
-            {
+            if (!fileTemp.exists()) {
                 fileTemp.createNewFile();
             }
-            if (!file.exists())
-            {
+            if (!file.exists()) {
                 file.createNewFile();
             }
             BufferedReader br = new BufferedReader(new FileReader(file));
             BufferedWriter bw = new BufferedWriter(new FileWriter(fileTemp));
             String record;
-            while ((record = br.readLine()) != null)
-            {
+            while ((record = br.readLine()) != null) {
                 User user = UserConvertor.convert(record);
-                if (data.getId() == user.getId())
-                {
+                if (data.getId() == user.getId()) {
                     bw.write(UserConvertor.convert(data));
-                }
-                else {
+                } else {
                     bw.write(record);
                 }
                 bw.flush();
@@ -105,22 +97,18 @@ public class UserDAOImpl implements UserDAO {
         try {
             File fileTemp = new File(FILE_NAME_TEMP);
             File file = new File(FILE_NAME);
-            if (!fileTemp.exists())
-            {
+            if (!fileTemp.exists()) {
                 fileTemp.createNewFile();
             }
-            if (!file.exists())
-            {
+            if (!file.exists()) {
                 file.createNewFile();
             }
             BufferedReader br = new BufferedReader(new FileReader(file));
             BufferedWriter bw = new BufferedWriter(new FileWriter(fileTemp));
             String record;
-            while ((record = br.readLine()) != null)
-            {
+            while ((record = br.readLine()) != null) {
                 User user = UserConvertor.convert(record);
-                if (data.getId() == user.getId())
-                {
+                if (data.getId() == user.getId()) {
                     continue;
                 }
                 bw.write(record);
@@ -142,11 +130,10 @@ public class UserDAOImpl implements UserDAO {
         File file;
         try {
             file = new File(FILE_NAME);
-            if (!file.exists())
-            {
+            if (!file.exists()) {
                 file.createNewFile();
             }
-            bw = new BufferedWriter( new FileWriter(FILE_NAME,true) );
+            bw = new BufferedWriter(new FileWriter(FILE_NAME, true));
             int id = findMaxId() + 1;
             data.setId(id);
             bw.write(UserConvertor.convert(data));
@@ -160,18 +147,19 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public int findMaxId() throws DAOException {
-        List<User>userList = getAll();
+        List<User> userList = getAll();
         int max = 0;
-        for (User us : userList){
-            if (us.getId() > max){
+        for (User us : userList) {
+            if (us.getId() > max) {
                 max = us.getId();
             }
         }
         return max;
     }
 
-    public User findByLogin(String login) throws DAOException{
-        List<User>userList = getAll();
+    @Override
+    public User findByLogin(String login) throws DAOException {
+        List<User> userList = getAll();
         User result = null;
         for (User user : userList) {
             if (user.getLogin().equals(login)) {

@@ -4,8 +4,8 @@ import by.javatr.atadurdyyew.exception.DAOException;
 
 import java.util.List;
 
-public interface GenericDAO<T> {
-    T get(T data) throws DAOException;
+public interface CRUD<T> {
+    T find(int id) throws DAOException;
     List<T>getAll() throws DAOException;
     void update(T data) throws DAOException;
     void delete(T data) throws DAOException;

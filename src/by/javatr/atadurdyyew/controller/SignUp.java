@@ -8,24 +8,22 @@ import by.javatr.atadurdyyew.service.factory.ServiceFactory;
 
 public class SignUp implements Command {
     @Override
-    public String execute(String command)  {
-        int i1 = command.indexOf('=');
-        String login = command.substring(i1 + 1, command.indexOf('&'));
-        int i2 = command.lastIndexOf('=');
-        String password = command.substring(i2 + 1);
+    public String execute(String command) {
+        String[] commands = command.split(" ");
+        String login = commands[1];
+        String password = commands[2];
         ClientService clientService = ServiceFactory.getInstance().getClientService();
         String result;
+        User user;
+
         try {
-            User user = new User(login, password);
-            clientService.signUp(user);
-            if (user.getId() == 0){
-                result = "Already exists";
-            }
-            else {
-                result = UserConvertor.convert(user) + " successfully signed up";
+            if ((user = clientService.signUp(login, password)) != null) {
+                result = UserConvertor.convert(user);
+            } else {
+                result = "Login already exists";
             }
         } catch (ServiceException e) {
-            result = "Error during signing up";
+            result = "Error acquired while signing up user";
         }
         return result;
     }

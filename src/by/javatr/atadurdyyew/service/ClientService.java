@@ -8,5 +8,5 @@ public interface ClientService {
 
     boolean logOut(String login) throws ServiceException;
 
-    void signUp(User user) throws ServiceException;
+    User signUp(String login, String password) throws ServiceException;
 }

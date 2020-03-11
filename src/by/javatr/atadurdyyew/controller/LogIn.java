@@ -9,23 +9,23 @@ import by.javatr.atadurdyyew.service.factory.ServiceFactory;
 public class LogIn implements Command {
     @Override
     public String execute(String command) {
-        int i1 = command.indexOf('=');
-        String login = command.substring(i1 + 1, command.indexOf('&'));
-        int i2 = command.lastIndexOf('=');
-        String password = command.substring(i2 + 1);
-        ClientService clientService = ServiceFactory.getInstance().getClientService();
+
+        String[] commands = command.split(" ");
+        String login = commands[1];
+        String password = commands[2];
+
         String result;
         User user;
+        ClientService clientService = ServiceFactory.getInstance().getClientService();
+
         try {
-            user = clientService.logIn(login, password);
-            if (user != null){
-                result = UserConvertor.convert(user) + " successfully logged in";
-            }
-            else{
-                result = "wrong login or password";
+            if ((user = clientService.logIn(login, password)) != null) {
+                result = UserConvertor.convert(user);
+            } else {
+                result = "Wrong login or password";
             }
         } catch (ServiceException e) {
-            result = "Error during log in Controller";
+            result = "Error acquired while logging in";
         }
         return result;
     }
