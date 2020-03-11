@@ -12,8 +12,12 @@ final public class CommandProvider {
         repository.put(CommandName.LOG_IN, new LogIn());
         repository.put(CommandName.LOG_OUT, new LogOut());
         repository.put(CommandName.SIGN_UP, new SignUp());
-        repository.put(CommandName.OPERATION, new Operation());
-        repository.put(CommandName.BALANCE, new Balance());
+        repository.put(CommandName.SELECT_BALANCE, new SelectBalance());
+        repository.put(CommandName.SELECT_OPERATION_ALL, new SelectOperationAll());
+        repository.put(CommandName.SELECT_OPERATION_EXPENSE, new SelectOperationExpense());
+        repository.put(CommandName.SELECT_OPERATION_INCOME, new SelectOperationIncome());
+        repository.put(CommandName.DELETE_OPERATION, new DeleteOperation());
+        repository.put(CommandName.CREATE_OPERATION, new CreateOperation());
     }
 
     Command getCommand(String name){

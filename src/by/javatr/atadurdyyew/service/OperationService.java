@@ -4,9 +4,9 @@ import by.javatr.atadurdyyew.bean.Operation;
 import by.javatr.atadurdyyew.exception.ServiceException;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Iterator;
 
 public interface OperationService {
     boolean operation(int accountId, BigDecimal amount, String operationName) throws ServiceException;
-    List<Operation> operationList() throws ServiceException;
+    Iterator<Operation> operationList() throws ServiceException;
 }

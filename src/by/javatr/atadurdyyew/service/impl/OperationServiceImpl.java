@@ -10,6 +10,7 @@ import by.javatr.atadurdyyew.exception.ServiceException;
 import by.javatr.atadurdyyew.service.OperationService;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 import java.util.List;
 
 public class OperationServiceImpl implements OperationService {
@@ -71,7 +72,7 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    public List<Operation> operationList() throws ServiceException {
+    public Iterator<Operation> operationList() throws ServiceException {
         List<Operation> operations;
         OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
         try {
@@ -79,6 +80,6 @@ public class OperationServiceImpl implements OperationService {
         } catch (DAOException e) {
             throw new ServiceException("Error while reading all operations ServiceLayer", e);
         }
-        return operations;
+        return operations.iterator();
     }
 }

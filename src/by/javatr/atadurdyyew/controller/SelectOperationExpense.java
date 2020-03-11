@@ -4,7 +4,7 @@ import by.javatr.atadurdyyew.exception.ServiceException;
 import by.javatr.atadurdyyew.service.OperationService;
 import by.javatr.atadurdyyew.service.factory.ServiceFactory;
 
-public class ExpenseList implements Command {
+public class SelectOperationExpense implements Command{
     @Override
     public String execute(String command) {
         OperationService operationService = ServiceFactory.getInstance().getOperationService();

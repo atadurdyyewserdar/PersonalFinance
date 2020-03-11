@@ -64,11 +64,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public BigDecimal getBalance(int id) throws ServiceException{
+    public BigDecimal getBalance(int account_id) throws ServiceException{
         AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
         BigDecimal balance;
         try {
-            Account account = accountDAO.findById(id);
+            Account account = accountDAO.findById(account_id);
             balance = account.getBalance();
         } catch (DAOException e) {
             throw new ServiceException("Error get balance ServiceLayer", e);
