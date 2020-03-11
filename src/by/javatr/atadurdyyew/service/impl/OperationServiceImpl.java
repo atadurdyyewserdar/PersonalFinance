@@ -16,20 +16,19 @@ import java.util.List;
 public class OperationServiceImpl implements OperationService {
     @Override
     public boolean operation(int accountId, BigDecimal amount, String operationName) throws ServiceException {
-        if (amount == null || operationName == null){
+        if (amount == null || operationName == null) {
             throw new ServiceException("Amount or operationName is null");
         }
         boolean result;
-        if (amount.compareTo(BigDecimal.ZERO) < 0){
+        if (amount.compareTo(BigDecimal.ZERO) < 0) {
             result = expense(accountId, amount, operationName);
-        }
-        else{
+        } else {
             result = income(accountId, amount, operationName);
         }
         return result;
     }
 
-    private boolean income(int accountId, BigDecimal amount, String operationName) throws ServiceException{
+    private boolean income(int accountId, BigDecimal amount, String operationName) throws ServiceException {
         AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
         OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
         boolean result = false;
@@ -50,7 +49,7 @@ public class OperationServiceImpl implements OperationService {
         return result;
     }
 
-    private boolean expense(int accountId, BigDecimal amount, String operationName) throws ServiceException{
+    private boolean expense(int accountId, BigDecimal amount, String operationName) throws ServiceException {
         AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
         OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
         boolean result = false;
@@ -77,6 +76,40 @@ public class OperationServiceImpl implements OperationService {
         OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
         try {
             operations = operationDAO.getAll();
+        } catch (DAOException e) {
+            throw new ServiceException("Error while reading all operations ServiceLayer", e);
+        }
+        return operations.iterator();
+    }
+
+    @Override
+    public Iterator<Operation> operationListExpense(int id) throws ServiceException {
+        List<Operation> operations;
+        OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
+        try {
+            operations = operationDAO.getAll();
+            for (Operation operation : operations){
+                if (operation.getValue().compareTo(BigDecimal.ZERO) >= 0 ){
+                    operations.remove(operation);
+                }
+            }
+        } catch (DAOException e) {
+            throw new ServiceException("Error while reading all operations ServiceLayer", e);
+        }
+        return operations.iterator();
+    }
+
+    @Override
+    public Iterator<Operation> operationListIncome(int id) throws ServiceException {
+        List<Operation> operations;
+        OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
+        try {
+            operations = operationDAO.getAll();
+            for (Operation operation : operations){
+                if (operation.getValue().compareTo(BigDecimal.ZERO) < 0){
+                    operations.remove(operation);
+                }
+            }
         } catch (DAOException e) {
             throw new ServiceException("Error while reading all operations ServiceLayer", e);
         }

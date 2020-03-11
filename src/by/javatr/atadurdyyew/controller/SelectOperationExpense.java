@@ -12,7 +12,7 @@ public class SelectOperationExpense implements Command{
         int id = Integer.parseInt(str[1]);
         String result;
         try {
-            result = operationService.operationList().toString();
+            result = operationService.operationListExpense(id).toString();
         } catch (ServiceException e) {
             result = "Error reading expense";
         }
