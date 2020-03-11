@@ -10,36 +10,37 @@ import by.javatr.atadurdyyew.exception.ServiceException;
 import by.javatr.atadurdyyew.service.OperationService;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class OperationServiceImpl implements OperationService {
     @Override
-    public boolean operation(int accountId, BigDecimal amount, String operationName) throws ServiceException {
-        if (amount == null || operationName == null) {
-            throw new ServiceException("Amount or operationName is null");
+    public boolean operation(Operation operation) throws ServiceException {
+        if (operation == null) {
+            throw new ServiceException("Operation is null");
         }
         boolean result;
-        if (amount.compareTo(BigDecimal.ZERO) < 0) {
-            result = expense(accountId, amount, operationName);
+        if (operation.getValue().compareTo(BigDecimal.ZERO) < 0) {
+            result = expense(operation);
         } else {
-            result = income(accountId, amount, operationName);
+            result = income(operation);
         }
         return result;
     }
 
-    private boolean income(int accountId, BigDecimal amount, String operationName) throws ServiceException {
+    private boolean income(Operation operation) throws ServiceException {
         AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
         OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
         boolean result = false;
         Account account;
         try {
-            account = accountDAO.findById(accountId);
+            account = accountDAO.findById(operation.getAccountId());
             if (account != null) {
                 int id = operationDAO.findMaxId() + 1;
-                Operation operation = new Operation(id, operationName, amount, accountId);
+                operation.setId(id);
                 operationDAO.create(operation);
-                account.setBalance(account.getBalance().add(amount));
+                account.setBalance(account.getBalance().add(operation.getValue()));
                 accountDAO.update(account);
                 result = true;
             }
@@ -49,18 +50,18 @@ public class OperationServiceImpl implements OperationService {
         return result;
     }
 
-    private boolean expense(int accountId, BigDecimal amount, String operationName) throws ServiceException {
+    private boolean expense(Operation operation) throws ServiceException {
         AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
         OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
         boolean result = false;
         Account account;
         try {
-            account = accountDAO.findById(accountId);
-            if (account != null && account.getBalance().subtract(amount.abs()).compareTo(BigDecimal.ZERO) >= 0) {
+            account = accountDAO.findById(operation.getAccountId());
+            if (account != null && account.getBalance().subtract(operation.getValue().abs()).compareTo(BigDecimal.ZERO) >= 0) {
                 int id = operationDAO.findMaxId() + 1;
-                Operation operation = new Operation(id, operationName, amount, accountId);
+                operation.setId(id);
                 operationDAO.create(operation);
-                account.setBalance(account.getBalance().subtract(amount.abs()));
+                account.setBalance(account.getBalance().subtract(operation.getValue().abs()));
                 accountDAO.update(account);
                 result = true;
             }
@@ -74,12 +75,18 @@ public class OperationServiceImpl implements OperationService {
     public Iterator<Operation> operationList(int account_id) throws ServiceException {
         List<Operation> operations;
         OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
+        List<Operation> resultOperationList = new ArrayList<>();
         try {
             operations = operationDAO.getAll();
+            for (Operation operation : operations) {
+                if (operation.getAccountId() != account_id) {
+                    resultOperationList.add(operation);
+                }
+            }
         } catch (DAOException e) {
             throw new ServiceException("Error while reading all operations ServiceLayer", e);
         }
-        return operations.iterator();
+        return resultOperationList.iterator();
     }
 
     @Override
@@ -116,6 +123,7 @@ public class OperationServiceImpl implements OperationService {
             Operation operation = operationDAO.find(operation_id);
             if (operation != null) {
                 operationDAO.delete(operation);
+                System.out.println("From service: " + operation);
                 result = true;
             }
         } catch (DAOException e) {
@@ -124,4 +132,6 @@ public class OperationServiceImpl implements OperationService {
         //Result will false if object not found
         return result;
     }
+
+
 }

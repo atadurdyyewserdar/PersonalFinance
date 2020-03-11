@@ -16,11 +16,6 @@ public class OperationDAOImpl implements OperationDAO {
     public static final String FILE_NAME_TEMP = "resources/operationsTemp.txt";
 
     @Override
-    public Operation findByType(boolean isExpense) throws DAOException {
-        return null;
-    }
-
-    @Override
     public int findMaxId() throws DAOException {
         List<Operation> operations = getAll();
         int max = 0;
@@ -46,7 +41,7 @@ public class OperationDAOImpl implements OperationDAO {
             String record;
             while ((record = br.readLine()) != null) {
                 Operation operation1 = OperationConvertor.convert(record);
-                if (operation1.getAccountId() == id) {
+                if (operation1.getId() == id) {
                     operation = operation1;
                 }
             }
@@ -127,6 +122,8 @@ public class OperationDAOImpl implements OperationDAO {
             while ((record = br.readLine()) != null) {
                 Operation operation = OperationConvertor.convert(record);
                 if (operation.getId() == data.getId()) {
+                    System.out.println("From DAO data: " + data);
+                    System.out.println("From DAO operation" + operation);
                     continue;
                 }
                 bw.write(record);

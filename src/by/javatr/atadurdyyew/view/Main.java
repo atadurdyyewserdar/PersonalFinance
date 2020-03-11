@@ -8,6 +8,7 @@ public class Main {
         Controller controller = new Controller();
         String result;
 
+/*
         //Sign up new user
         result = controller.executeTask("sign_up user user");
         System.out.println("sign_up: " + result);
@@ -47,11 +48,21 @@ public class Main {
         //Delete operation
         result = controller.executeTask("delete_operation 1");
         System.out.println("Delete result: " + result);
-        result = controller.executeTask("select_operation_all");
+        result = controller.executeTask("select_operation_all 1");
         System.out.println("After delete: " + result);
 
         //Show balance
         result = controller.executeTask("select_balance 1");
         System.out.println("Select balance: " + result);
+
+        //Delete operation
+        result = controller.executeTask("delete_operation 1");
+        System.out.println("Delete result: " + result);
+*/
+        while (true) {
+            System.out.println("1) Log in");
+            System.out.println("2) Sign up");
+            System.out.println("3) Exit");
+        }
     }
 }

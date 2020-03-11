@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.Iterator;
 
 public interface OperationService {
-    boolean operation(int accountId, BigDecimal amount, String operationName) throws ServiceException;
+    boolean operation(Operation operation) throws ServiceException;
 
     Iterator<Operation> operationList(int account_id) throws ServiceException;
 
@@ -16,4 +16,5 @@ public interface OperationService {
     Iterator<Operation> operationListIncome(int account_id) throws ServiceException;
 
     boolean deleteOperation(int operation_id) throws ServiceException;
+
 }
