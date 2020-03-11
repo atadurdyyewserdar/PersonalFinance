@@ -1,6 +1,11 @@
 package by.javatr.atadurdyyew.view;
 
+import by.javatr.atadurdyyew.bean.User;
 import by.javatr.atadurdyyew.controller.Controller;
+import by.javatr.atadurdyyew.convertor.UserConvertor;
+import by.javatr.atadurdyyew.scanner.DataScanner;
+
+import javax.xml.crypto.Data;
 
 public class Main {
     public static void main(String[] args) {
@@ -59,10 +64,44 @@ public class Main {
         result = controller.executeTask("delete_operation 1");
         System.out.println("Delete result: " + result);
 */
-        while (true) {
+
+        int choice = 0;
+
+        while (choice != 3) {
             System.out.println("1) Log in");
             System.out.println("2) Sign up");
             System.out.println("3) Exit");
+            choice = DataScanner.enterIntFromConsole();
+            switch (choice) {
+                case 1: {
+                    String login, password;
+                    System.out.print("Enter login: ");
+                    login = DataScanner.enterStringFromConsole();
+                    System.out.print("Enter password");
+                    password = DataScanner.enterStringFromConsole();
+                    String request = "log_in " + login + " " + password;
+                    result = controller.executeTask(request);
+                    System.out.println(result);
+                    if (!result.equals("Wrong login or password")) {
+                        System.out.println("===============================");
+                        User user = UserConvertor.convert(result);
+                    }
+                    break;
+                }
+                case 2: {
+                    String newLogin, newPassword;
+                    System.out.print("Enter a new login: ");
+                    newLogin = DataScanner.enterStringFromConsole();
+                    System.out.print("Enter a new password");
+                    newPassword = DataScanner.enterStringFromConsole();
+                    String request = "sign_up " + newLogin + " " + newPassword;
+                    result = controller.executeTask(request);
+                    System.out.println(result);
+                    break;
+                }
+                default:
+                    break;
+            }
         }
     }
 }

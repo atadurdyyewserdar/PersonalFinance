@@ -22,4 +22,9 @@ public class DataScanner {
         a = scanner.nextDouble();
         return a;
     }
+
+    public static String enterStringFromConsole() {
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
 }

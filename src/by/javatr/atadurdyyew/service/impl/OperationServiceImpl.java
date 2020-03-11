@@ -35,7 +35,7 @@ public class OperationServiceImpl implements OperationService {
         boolean result = false;
         Account account;
         try {
-            account = accountDAO.findById(operation.getAccountId());
+            account = accountDAO.find(operation.getAccountId());
             if (account != null) {
                 int id = operationDAO.findMaxId() + 1;
                 operation.setId(id);
@@ -56,7 +56,7 @@ public class OperationServiceImpl implements OperationService {
         boolean result = false;
         Account account;
         try {
-            account = accountDAO.findById(operation.getAccountId());
+            account = accountDAO.find(operation.getAccountId());
             if (account != null && account.getBalance().subtract(operation.getValue().abs()).compareTo(BigDecimal.ZERO) >= 0) {
                 int id = operationDAO.findMaxId() + 1;
                 operation.setId(id);

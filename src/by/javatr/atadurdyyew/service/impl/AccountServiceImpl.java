@@ -68,11 +68,23 @@ public class AccountServiceImpl implements AccountService {
         AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
         BigDecimal balance;
         try {
-            Account account = accountDAO.findById(account_id);
+            Account account = accountDAO.find(account_id);
             balance = account.getBalance();
         } catch (DAOException e) {
             throw new ServiceException("Error get balance ServiceLayer", e);
         }
         return balance;
+    }
+
+    @Override
+    public Account getMyAccount(int userId) throws ServiceException {
+        AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
+        Account account;
+        try {
+            account = accountDAO.findByUserId(userId);
+        } catch (DAOException e) {
+            throw new ServiceException();
+        }
+        return account;
     }
 }

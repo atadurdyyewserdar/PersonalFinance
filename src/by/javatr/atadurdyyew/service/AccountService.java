@@ -16,4 +16,6 @@ public interface AccountService {
     List<Account> getAll() throws ServiceException;
 
     BigDecimal getBalance(int id) throws ServiceException;
+
+    Account getMyAccount(int userId) throws ServiceException;
 }

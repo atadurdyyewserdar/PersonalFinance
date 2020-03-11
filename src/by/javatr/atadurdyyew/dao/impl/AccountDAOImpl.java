@@ -167,16 +167,4 @@ public class AccountDAOImpl implements AccountDAO {
         }
         return result;
     }
-
-    @Override
-    public Account findById(int id) throws DAOException {
-        List<Account> accounts = getAll();
-        Account result = null;
-        for (Account account : accounts) {
-            if (account.getAccountId() == id) {
-                result = account;
-            }
-        }
-        return result;
-    }
 }

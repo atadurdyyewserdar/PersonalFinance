@@ -5,5 +5,4 @@ import by.javatr.atadurdyyew.exception.DAOException;
 
 public interface AccountDAO extends CRUD<Account> {
     Account findByUserId(int id) throws DAOException;
-    Account findById(int id) throws DAOException;
 }
