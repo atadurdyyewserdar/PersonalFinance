@@ -1,2 +1,2 @@
-# PersonalFinance
-A simple PersonalFinance project 
+# Personal Finance Application
+A simple PersonalFinance console application built on layered architecture.

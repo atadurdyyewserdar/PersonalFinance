@@ -2,6 +2,7 @@ package by.javatr.atadurdyyew.controller;
 
 import by.javatr.atadurdyyew.bean.Operation;
 import by.javatr.atadurdyyew.convertor.OperationConvertor;
+import by.javatr.atadurdyyew.exception.ConvertorException;
 import by.javatr.atadurdyyew.exception.ServiceException;
 import by.javatr.atadurdyyew.service.OperationService;
 import by.javatr.atadurdyyew.service.factory.ServiceFactory;
@@ -18,7 +19,7 @@ public class SelectOperationExpense implements Command {
         try {
             Iterator<Operation> iterator = operationService.operationListExpense(id);
             result = OperationConvertor.convert(iterator);
-        } catch (ServiceException e) {
+        } catch (ServiceException | ConvertorException e) {
             result = "Error acquired while reading expense";
         }
         return result;

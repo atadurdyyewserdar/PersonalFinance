@@ -3,6 +3,7 @@ package by.javatr.atadurdyyew.dao.impl;
 import by.javatr.atadurdyyew.bean.Account;
 import by.javatr.atadurdyyew.convertor.AccountConvertor;
 import by.javatr.atadurdyyew.dao.AccountDAO;
+import by.javatr.atadurdyyew.exception.ConvertorException;
 import by.javatr.atadurdyyew.exception.DAOException;
 import by.javatr.atadurdyyew.exception.ServiceException;
 
@@ -34,7 +35,7 @@ public class AccountDAOImpl implements AccountDAO {
                 }
             }
             br.close();
-        } catch (IOException e) {
+        } catch (IOException | ConvertorException e) {
             throw new DAOException("Error while writing to file", e);
         }
         return account;
@@ -54,7 +55,7 @@ public class AccountDAOImpl implements AccountDAO {
                 accounts.add(AccountConvertor.convert(record));
             }
             bf.close();
-        } catch (IOException e) {
+        } catch (IOException | ConvertorException e) {
             throw new DAOException("Error while writing to file", e);
         }
         return accounts;
@@ -91,7 +92,7 @@ public class AccountDAOImpl implements AccountDAO {
             bw.close();
             file.delete();
             fileTemp.renameTo(file);
-        } catch (IOException e) {
+        } catch (IOException | ConvertorException e) {
             throw new DAOException("Error while writing to file", e);
         }
     }
@@ -148,7 +149,7 @@ public class AccountDAOImpl implements AccountDAO {
             bw.flush();
             bw.newLine();
             bw.close();
-        } catch (IOException e) {
+        } catch (IOException | ConvertorException e) {
             throw new DAOException("Error while writing account to file", e);
         }
     }

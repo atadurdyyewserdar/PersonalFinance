@@ -3,6 +3,7 @@ package by.javatr.atadurdyyew.dao.impl;
 import by.javatr.atadurdyyew.convertor.UserConvertor;
 import by.javatr.atadurdyyew.bean.User;
 import by.javatr.atadurdyyew.dao.UserDAO;
+import by.javatr.atadurdyyew.exception.ConvertorException;
 import by.javatr.atadurdyyew.exception.DAOException;
 
 import java.io.*;
@@ -33,7 +34,7 @@ public class UserDAOImpl implements UserDAO {
                 }
             }
             br.close();
-        } catch (IOException e) {
+        } catch (IOException | ConvertorException e) {
             throw new DAOException("Error while writing to file", e);
         }
         return user;
@@ -53,7 +54,7 @@ public class UserDAOImpl implements UserDAO {
                 users.add(UserConvertor.convert(record));
             }
             bf.close();
-        } catch (IOException e) {
+        } catch (IOException | ConvertorException e) {
             throw new DAOException("Error while writing to file", e);
         }
         return users;
@@ -90,7 +91,7 @@ public class UserDAOImpl implements UserDAO {
             bw.close();
             file.delete();
             fileTemp.renameTo(file);
-        } catch (IOException e) {
+        } catch (IOException | ConvertorException e) {
             throw new DAOException("Error while writing to file", e);
         }
     }
@@ -125,7 +126,7 @@ public class UserDAOImpl implements UserDAO {
             bw.close();
             file.delete();
             fileTemp.renameTo(file);
-        } catch (IOException e) {
+        } catch (IOException | ConvertorException e) {
             throw new DAOException("Error while writing to file", e);
         }
     }
@@ -149,7 +150,7 @@ public class UserDAOImpl implements UserDAO {
             bw.flush();
             bw.newLine();
             bw.close();
-        } catch (IOException e) {
+        } catch (IOException | ConvertorException e) {
             throw new DAOException("Error while writing to file", e);
         }
     }

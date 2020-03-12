@@ -5,6 +5,7 @@ import by.javatr.atadurdyyew.bean.Operation;
 import by.javatr.atadurdyyew.convertor.AccountConvertor;
 import by.javatr.atadurdyyew.convertor.OperationConvertor;
 import by.javatr.atadurdyyew.dao.OperationDAO;
+import by.javatr.atadurdyyew.exception.ConvertorException;
 import by.javatr.atadurdyyew.exception.DAOException;
 
 import java.io.*;
@@ -46,7 +47,7 @@ public class OperationDAOImpl implements OperationDAO {
                 }
             }
             br.close();
-        } catch (IOException e) {
+        } catch (IOException | ConvertorException e) {
             throw new DAOException("Error while writing to file", e);
         }
         return operation;
@@ -66,7 +67,7 @@ public class OperationDAOImpl implements OperationDAO {
                 operations.add(OperationConvertor.convert(record));
             }
             bf.close();
-        } catch (IOException e) {
+        } catch (IOException | ConvertorException e) {
             throw new DAOException("Error while writing to file", e);
         }
         return operations;
@@ -103,7 +104,7 @@ public class OperationDAOImpl implements OperationDAO {
             bw.close();
             file.delete();
             fileTemp.renameTo(file);
-        } catch (IOException e) {
+        } catch (IOException | ConvertorException e) {
             throw new DAOException("Error while writing to file", e);
         }
     }
@@ -140,7 +141,7 @@ public class OperationDAOImpl implements OperationDAO {
             bw.close();
             file.delete();
             fileTemp.renameTo(file);
-        } catch (IOException e) {
+        } catch (IOException | ConvertorException e) {
             throw new DAOException("Error while writing account to file", e);
         }
     }
@@ -163,7 +164,7 @@ public class OperationDAOImpl implements OperationDAO {
             bw.flush();
             bw.newLine();
             bw.close();
-        } catch (IOException e) {
+        } catch (IOException | ConvertorException e) {
             throw new DAOException("Error while writing account to file", e);
         }
     }

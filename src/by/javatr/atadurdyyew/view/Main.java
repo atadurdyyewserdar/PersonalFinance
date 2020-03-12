@@ -4,6 +4,8 @@ import by.javatr.atadurdyyew.controller.Controller;
 import by.javatr.atadurdyyew.scanner.DataScanner;
 
 public class Main {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
 
     static Controller controller = new Controller();
 
@@ -27,6 +29,8 @@ public class Main {
                     result = controller.executeTask(request);
                     if (!result.equals("Wrong login or password")) {
                         userMenu(result);
+                    } else {
+                        System.out.println(result);
                     }
                     break;
                 }
@@ -70,31 +74,31 @@ public class Main {
                 case 1: {
                     request = "select_account " + userId;
                     result = controller.executeTask(request);
-                    System.out.println(result);
+                    System.out.println(ANSI_BLACK + "ID: " + result + ANSI_RESET);
                     break;
                 }
                 case 2: {
                     request = "select_balance " + accountId;
                     result = controller.executeTask(request);
-                    System.out.println(result);
+                    System.out.println(ANSI_BLACK + "Balance: " + result + ANSI_RESET);
                     break;
                 }
                 case 3: {
                     request = "select_operation_all " + accountId;
                     result = controller.executeTask(request);
-                    System.out.println(result);
+                    System.out.println(ANSI_BLACK + result + ANSI_RESET);
                     break;
                 }
                 case 4: {
                     request = "select_operation_income " + accountId;
                     result = controller.executeTask(request);
-                    System.out.println(result);
+                    System.out.println(ANSI_BLACK + result + ANSI_RESET);
                     break;
                 }
                 case 5: {
                     request = "select_operation_expense " + accountId;
                     result = controller.executeTask(request);
-                    System.out.println(result);
+                    System.out.println(ANSI_BLACK + result + ANSI_RESET);
                     break;
                 }
                 case 6: {
@@ -104,7 +108,7 @@ public class Main {
                     String description = DataScanner.enterStringFromConsole();
                     request = "create_operation " + accountId + " " + amount + " " + description;
                     result = controller.executeTask(request);
-                    System.out.println(result);
+                    System.out.println(ANSI_BLACK + result + ANSI_RESET);
                     break;
                 }
                 case 7: {
@@ -115,7 +119,7 @@ public class Main {
                     int opId = DataScanner.enterIntFromConsole();
                     request = "delete_operation " + opId;
                     result = controller.executeTask(request);
-                    System.out.println(result);
+                    System.out.println(ANSI_BLACK + result + ANSI_RESET);
                     break;
                 }
                 case 8:
