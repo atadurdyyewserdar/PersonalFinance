@@ -20,7 +20,7 @@ public class LogIn implements Command {
 
         try {
             if ((user = clientService.logIn(login, password)) != null) {
-                result = UserConvertor.convert(user);
+                result = String.valueOf(user.getId());
             } else {
                 result = "Wrong login or password";
             }

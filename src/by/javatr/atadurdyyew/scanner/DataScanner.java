@@ -27,4 +27,6 @@ public class DataScanner {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
+
+
 }

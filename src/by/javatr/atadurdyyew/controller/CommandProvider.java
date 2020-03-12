@@ -18,6 +18,7 @@ final public class CommandProvider {
         repository.put(CommandName.SELECT_OPERATION_INCOME, new SelectOperationIncome());
         repository.put(CommandName.DELETE_OPERATION, new DeleteOperation());
         repository.put(CommandName.CREATE_OPERATION, new CreateOperation());
+        repository.put(CommandName.SELECT_ACCOUNT, new SelectAccount());
     }
 
     Command getCommand(String name){

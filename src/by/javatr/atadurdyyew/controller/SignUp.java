@@ -18,7 +18,7 @@ public class SignUp implements Command {
 
         try {
             if ((user = clientService.signUp(login, password)) != null) {
-                result = UserConvertor.convert(user);
+                result = String.valueOf(user.getId());
             } else {
                 result = "Login already exists";
             }

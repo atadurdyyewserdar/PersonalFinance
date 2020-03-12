@@ -16,7 +16,7 @@ public class SelectAccount implements Command {
         try {
             Account account = accountService.getMyAccount(user_id);
             if (account != null) {
-                result = AccountConvertor.convert(accountService.getMyAccount(user_id));
+                result = String.valueOf(accountService.getMyAccount(user_id).getAccountId());
             } else {
                 result = "Account not found";
             }
