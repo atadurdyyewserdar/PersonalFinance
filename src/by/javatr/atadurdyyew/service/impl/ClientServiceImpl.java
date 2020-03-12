@@ -27,7 +27,7 @@ public class ClientServiceImpl implements ClientService {
                 result = null;
             }
         } catch (DAOException e) {
-            throw new ServiceException();
+            throw new ServiceException("Error acquired while logging in", e);
         }
         return result;
     }
@@ -49,7 +49,7 @@ public class ClientServiceImpl implements ClientService {
         AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
         User user = null;
         try {
-            if (userGenericDAO.findByLogin(login) == null) {
+            if (userGenericDAO.findByLogin(login) == null) { //If login valid then create new User
                 user = new User(login, password);
                 userGenericDAO.create(user);
                 Account account = new Account();

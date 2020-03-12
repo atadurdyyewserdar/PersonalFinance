@@ -74,6 +74,9 @@ public class OperationDAOImpl implements OperationDAO {
 
     @Override
     public void update(Operation data) throws DAOException {
+        if (data == null) {
+            throw new DAOException("Data is null");
+        }
         try {
             File fileTemp = new File(FILE_NAME_TEMP);
             File file = new File(FILE_NAME);
@@ -107,6 +110,9 @@ public class OperationDAOImpl implements OperationDAO {
 
     @Override
     public void delete(Operation data) throws DAOException {
+        if (data == null) {
+            throw new DAOException("Data is null");
+        }
         try {
             File fileTemp = new File(FILE_NAME_TEMP);
             File file = new File(FILE_NAME);
@@ -141,6 +147,9 @@ public class OperationDAOImpl implements OperationDAO {
 
     @Override
     public void create(Operation data) throws DAOException {
+        if (data == null) {
+            throw new DAOException("Data is null");
+        }
         BufferedWriter bw;
         File file;
         try {

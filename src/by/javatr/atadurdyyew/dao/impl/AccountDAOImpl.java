@@ -4,6 +4,7 @@ import by.javatr.atadurdyyew.bean.Account;
 import by.javatr.atadurdyyew.convertor.AccountConvertor;
 import by.javatr.atadurdyyew.dao.AccountDAO;
 import by.javatr.atadurdyyew.exception.DAOException;
+import by.javatr.atadurdyyew.exception.ServiceException;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -61,6 +62,9 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public void update(Account data) throws DAOException {
+        if (data == null) {
+            throw new DAOException("Data is null");
+        }
         try {
             File fileTemp = new File(FILE_NAME_TEMP);
             File file = new File(FILE_NAME);
@@ -94,6 +98,9 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public void delete(Account data) throws DAOException {
+        if (data == null) {
+            throw new DAOException("Data is null");
+        }
         try {
             File fileTemp = new File(FILE_NAME_TEMP);
             File file = new File(FILE_NAME);
@@ -125,6 +132,9 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public void create(Account data) throws DAOException {
+        if (data == null) {
+            throw new DAOException("Data is null");
+        }
         BufferedWriter bw;
         File file;
         try {

@@ -61,6 +61,9 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void update(User data) throws DAOException {
+        if (data == null) {
+            throw new DAOException("Data is null");
+        }
         try {
             File fileTemp = new File(FILE_NAME_TEMP);
             File file = new File(FILE_NAME);
@@ -94,6 +97,9 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void delete(User data) throws DAOException {
+        if (data == null) {
+            throw new DAOException("Data is null");
+        }
         try {
             File fileTemp = new File(FILE_NAME_TEMP);
             File file = new File(FILE_NAME);
@@ -126,6 +132,9 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void create(User data) throws DAOException {
+        if (data == null) {
+            throw new DAOException("Data is null");
+        }
         BufferedWriter bw;
         File file;
         try {
@@ -159,6 +168,9 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User findByLogin(String login) throws DAOException {
+        if (login == null) {
+            throw new DAOException("login is null");
+        }
         List<User> userList = getAll();
         User result = null;
         for (User user : userList) {

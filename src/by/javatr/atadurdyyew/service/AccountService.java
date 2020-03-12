@@ -4,6 +4,7 @@ import by.javatr.atadurdyyew.bean.Account;
 import by.javatr.atadurdyyew.exception.ServiceException;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 import java.util.List;
 
 public interface AccountService {
@@ -13,7 +14,7 @@ public interface AccountService {
 
     void update(Account account) throws ServiceException;
 
-    List<Account> getAll() throws ServiceException;
+    Iterator<Account> getIteratorAll() throws ServiceException;
 
     BigDecimal getBalance(int id) throws ServiceException;
 

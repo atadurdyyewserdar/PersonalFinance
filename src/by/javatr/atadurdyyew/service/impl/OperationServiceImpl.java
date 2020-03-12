@@ -30,6 +30,9 @@ public class OperationServiceImpl implements OperationService {
     }
 
     private boolean income(Operation operation) throws ServiceException {
+        if (operation == null) {
+            throw new ServiceException("Operation is null");
+        }
         AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
         OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
         boolean result = false;
@@ -37,20 +40,21 @@ public class OperationServiceImpl implements OperationService {
         try {
             account = accountDAO.find(operation.getAccountId());
             if (account != null) {
-                int id = operationDAO.findMaxId() + 1;
-                operation.setId(id);
                 operationDAO.create(operation);
                 account.setBalance(account.getBalance().add(operation.getValue()));
                 accountDAO.update(account);
                 result = true;
             }
         } catch (DAOException e) {
-            throw new ServiceException("Error income add Service Layer", e);
+            throw new ServiceException("Error while adding operation", e);
         }
         return result;
     }
 
     private boolean expense(Operation operation) throws ServiceException {
+        if (operation == null) {
+            throw new ServiceException("Operation is null");
+        }
         AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
         OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
         boolean result = false;
@@ -58,15 +62,13 @@ public class OperationServiceImpl implements OperationService {
         try {
             account = accountDAO.find(operation.getAccountId());
             if (account != null && account.getBalance().subtract(operation.getValue().abs()).compareTo(BigDecimal.ZERO) >= 0) {
-                int id = operationDAO.findMaxId() + 1;
-                operation.setId(id);
                 operationDAO.create(operation);
                 account.setBalance(account.getBalance().subtract(operation.getValue().abs()));
                 accountDAO.update(account);
                 result = true;
             }
         } catch (DAOException e) {
-            throw new ServiceException("Error income add Service Layer", e);
+            throw new ServiceException("Error while adding operation", e);
         }
         return result;
     }
@@ -132,7 +134,6 @@ public class OperationServiceImpl implements OperationService {
             Operation operation = operationDAO.find(operation_id);
             if (operation != null) {
                 operationDAO.delete(operation);
-                System.out.println("From service: " + operation);
                 result = true;
             }
         } catch (DAOException e) {

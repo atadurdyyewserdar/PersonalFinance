@@ -4,7 +4,9 @@ import by.javatr.atadurdyyew.exception.ServiceException;
 import by.javatr.atadurdyyew.service.AccountService;
 import by.javatr.atadurdyyew.service.factory.ServiceFactory;
 
-public class SelectBalance implements Command{
+import java.math.BigDecimal;
+
+public class SelectBalance implements Command {
     @Override
     public String execute(String command) {
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
@@ -12,10 +14,16 @@ public class SelectBalance implements Command{
         String[] strings = command.split(" ");
         String result;
         try {
-            result = String.valueOf(accountService.getBalance(Integer.parseInt(strings[1])));
+            int account_id = Integer.parseInt(strings[1]);
+            BigDecimal bigDecimal = accountService.getBalance(account_id);
+            if (bigDecimal == null) {
+                result = "Account not found";
+            } else {
+                result = String.valueOf(bigDecimal);
+            }
         } catch (ServiceException e) {
-            result = "Error";
+            result = "Error acquired while executing balance";
         }
-        return  result;
+        return result;
     }
 }
