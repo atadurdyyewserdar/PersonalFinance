@@ -79,7 +79,7 @@ public class OperationServiceImpl implements OperationService {
         try {
             operations = operationDAO.getAll();
             for (Operation operation : operations) {
-                if (operation.getAccountId() != account_id) {
+                if (operation.getAccountId() == account_id) {
                     resultOperationList.add(operation);
                 }
             }
@@ -92,27 +92,36 @@ public class OperationServiceImpl implements OperationService {
     @Override
     public Iterator<Operation> operationListExpense(int id) throws ServiceException {
         List<Operation> operations;
+        List<Operation> resultOperationList = new ArrayList<>();
         OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
         try {
             operations = operationDAO.getAll();
-            operations.removeIf(operation -> operation.getValue().compareTo(BigDecimal.ZERO) >= 0);
+            for (Operation operation : operations) {
+                if (operation.getAccountId() == id && operation.getValue().compareTo(BigDecimal.ZERO) <= 0) {
+                    resultOperationList.add(operation);
+                }
+            }
         } catch (DAOException e) {
             throw new ServiceException("Error while reading all operations ServiceLayer", e);
         }
-        return operations.iterator();
+        return resultOperationList.iterator();
     }
 
     @Override
     public Iterator<Operation> operationListIncome(int id) throws ServiceException {
-        List<Operation> operations;
+        List<Operation> operations, resultOperationList = new ArrayList<>();
         OperationDAO operationDAO = DAOFactory.getDAOFactory().getOperationDAO();
         try {
             operations = operationDAO.getAll();
-            operations.removeIf(operation -> operation.getValue().compareTo(BigDecimal.ZERO) < 0);
+            for (Operation operation : operations) {
+                if (operation.getAccountId() == id && operation.getValue().compareTo(BigDecimal.ZERO) > 0) {
+                    resultOperationList.add(operation);
+                }
+            }
         } catch (DAOException e) {
             throw new ServiceException("Error while reading all operations ServiceLayer", e);
         }
-        return operations.iterator();
+        return resultOperationList.iterator();
     }
 
     @Override
