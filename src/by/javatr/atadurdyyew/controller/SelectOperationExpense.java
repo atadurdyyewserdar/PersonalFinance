@@ -1,7 +1,7 @@
 package by.javatr.atadurdyyew.controller;
 
 import by.javatr.atadurdyyew.bean.Operation;
-import by.javatr.atadurdyyew.convertor.OperationConvertor;
+import by.javatr.atadurdyyew.dao.convertor.OperationConvertor;
 import by.javatr.atadurdyyew.exception.ConvertorException;
 import by.javatr.atadurdyyew.exception.ServiceException;
 import by.javatr.atadurdyyew.service.OperationService;

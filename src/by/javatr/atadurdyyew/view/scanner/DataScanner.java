@@ -1,4 +1,4 @@
-package by.javatr.atadurdyyew.scanner;
+package by.javatr.atadurdyyew.view.scanner;
 
 import java.util.Scanner;
 

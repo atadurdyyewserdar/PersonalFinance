@@ -1,6 +1,6 @@
 package by.javatr.atadurdyyew.controller;
 
-import by.javatr.atadurdyyew.entity.CommandName;
+import by.javatr.atadurdyyew.controller.entity.CommandName;
 
 import java.util.HashMap;
 import java.util.Map;

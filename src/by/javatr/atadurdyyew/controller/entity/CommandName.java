@@ -1,4 +1,4 @@
-package by.javatr.atadurdyyew.entity;
+package by.javatr.atadurdyyew.controller.entity;
 
 public enum CommandName {
     LOG_IN,

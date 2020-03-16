@@ -1,7 +1,7 @@
 package by.javatr.atadurdyyew.view;
 
 import by.javatr.atadurdyyew.controller.Controller;
-import by.javatr.atadurdyyew.scanner.DataScanner;
+import by.javatr.atadurdyyew.view.scanner.DataScanner;
 
 public class Main {
     public static final String ANSI_RESET = "\u001B[0m";

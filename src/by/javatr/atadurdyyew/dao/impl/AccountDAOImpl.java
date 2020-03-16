@@ -1,11 +1,10 @@
 package by.javatr.atadurdyyew.dao.impl;
 
 import by.javatr.atadurdyyew.bean.Account;
-import by.javatr.atadurdyyew.convertor.AccountConvertor;
+import by.javatr.atadurdyyew.dao.convertor.AccountConvertor;
 import by.javatr.atadurdyyew.dao.AccountDAO;
 import by.javatr.atadurdyyew.exception.ConvertorException;
 import by.javatr.atadurdyyew.exception.DAOException;
-import by.javatr.atadurdyyew.exception.ServiceException;
 
 import java.io.*;
 import java.util.ArrayList;

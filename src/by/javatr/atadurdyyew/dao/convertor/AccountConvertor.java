@@ -1,7 +1,6 @@
-package by.javatr.atadurdyyew.convertor;
+package by.javatr.atadurdyyew.dao.convertor;
 
 import by.javatr.atadurdyyew.bean.Account;
-import by.javatr.atadurdyyew.bean.User;
 import by.javatr.atadurdyyew.exception.ConvertorException;
 
 import java.math.BigDecimal;

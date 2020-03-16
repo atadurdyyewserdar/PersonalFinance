@@ -1,6 +1,6 @@
-package by.javatr.atadurdyyew.validation;
+package by.javatr.atadurdyyew.controller.validation;
 
-import by.javatr.atadurdyyew.entity.CommandName;
+import by.javatr.atadurdyyew.controller.entity.CommandName;
 
 public class CommandValidator {
     public static boolean validate(String command) {

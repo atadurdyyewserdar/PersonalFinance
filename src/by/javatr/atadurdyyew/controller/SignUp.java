@@ -1,7 +1,6 @@
 package by.javatr.atadurdyyew.controller;
 
 import by.javatr.atadurdyyew.bean.User;
-import by.javatr.atadurdyyew.convertor.UserConvertor;
 import by.javatr.atadurdyyew.exception.ServiceException;
 import by.javatr.atadurdyyew.service.ClientService;
 import by.javatr.atadurdyyew.service.factory.ServiceFactory;

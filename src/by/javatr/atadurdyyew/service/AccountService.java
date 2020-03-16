@@ -5,7 +5,6 @@ import by.javatr.atadurdyyew.exception.ServiceException;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
-import java.util.List;
 
 public interface AccountService {
     void createAccount(Account account) throws ServiceException;

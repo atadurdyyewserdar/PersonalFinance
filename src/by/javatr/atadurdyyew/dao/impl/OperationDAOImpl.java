@@ -1,9 +1,7 @@
 package by.javatr.atadurdyyew.dao.impl;
 
-import by.javatr.atadurdyyew.bean.Account;
 import by.javatr.atadurdyyew.bean.Operation;
-import by.javatr.atadurdyyew.convertor.AccountConvertor;
-import by.javatr.atadurdyyew.convertor.OperationConvertor;
+import by.javatr.atadurdyyew.dao.convertor.OperationConvertor;
 import by.javatr.atadurdyyew.dao.OperationDAO;
 import by.javatr.atadurdyyew.exception.ConvertorException;
 import by.javatr.atadurdyyew.exception.DAOException;

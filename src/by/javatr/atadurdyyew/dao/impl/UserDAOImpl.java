@@ -1,6 +1,6 @@
 package by.javatr.atadurdyyew.dao.impl;
 
-import by.javatr.atadurdyyew.convertor.UserConvertor;
+import by.javatr.atadurdyyew.dao.convertor.UserConvertor;
 import by.javatr.atadurdyyew.bean.User;
 import by.javatr.atadurdyyew.dao.UserDAO;
 import by.javatr.atadurdyyew.exception.ConvertorException;
